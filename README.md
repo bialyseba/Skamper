@@ -1,2 +1,0 @@
-# Skamper
-Master Thesis
