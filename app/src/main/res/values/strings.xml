@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Skamper</string>
+    <string name="sinch_key">1abe0367-b09a-4c11-826f-d537e6e67e1a</string>
+    <string name="sinch_secret">31/QgOrUjkOKiL/BpaK85g==</string>
 </resources>
