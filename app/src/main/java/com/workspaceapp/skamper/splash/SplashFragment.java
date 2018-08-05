@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 
 import com.workspaceapp.skamper.R;
+import com.workspaceapp.skamper.login.LoginActivity;
 import com.workspaceapp.skamper.main.MainActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -56,6 +57,7 @@ public class SplashFragment extends Fragment implements SplashContract.View {
 
     @Override
     public void openLoginActivity() {
-
+        Intent intent = LoginActivity.getStartIntent(getContext());
+        startActivity(intent);
     }
 }

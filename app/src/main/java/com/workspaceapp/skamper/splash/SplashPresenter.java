@@ -1,6 +1,7 @@
 package com.workspaceapp.skamper.splash;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.workspaceapp.skamper.data.AppDataManager;
@@ -21,7 +22,7 @@ public class SplashPresenter implements SplashContract.Presenter{
     }
     @Override
     public void start(Context context) {
-        decideNextActivity(context);
+        new Handler().postDelayed(() -> decideNextActivity(context), 3000);
     }
 
     @Override
