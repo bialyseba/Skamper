@@ -27,13 +27,14 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_weight="0.5"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/loginFormButton"
-                android:layout_gravity="center"
-                android:background="@drawable/button_round_checked"
+                android:layout_gravity="start"
+                android:background="@drawable/button_circle_checked"
                 android:text="@string/login"
                 android:textSize="@dimen/big_text_size"
                 android:textAllCaps="false"
@@ -42,13 +43,14 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_weight="0.5"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/registerFormButton"
-                android:layout_gravity="center"
-                android:background="@drawable/button_round_unchecked"
+                android:layout_gravity="end"
+                android:background="@drawable/button_circle_unchecked"
                 android:text="@string/sign_up"
                 android:textSize="@dimen/big_text_size"
                 android:textAllCaps="false"

@@ -4,4 +4,9 @@
     <string name="sinch_secret">31/QgOrUjkOKiL/BpaK85g==</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="interjection">!</string>
 </resources>
