@@ -9,4 +9,7 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="dont_have_account">Don\'t have an account?</string>
     <string name="interjection">!</string>
+    <string name="username">Username</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="register">Register</string>
 </resources>

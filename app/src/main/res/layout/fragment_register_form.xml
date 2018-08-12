@@ -3,10 +3,69 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Register Form"/>
+        android:id="@+id/inputLayout"
+        android:orientation="vertical">
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_rounded"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/form_vertical_marigin"
+            android:hint="@string/username"
+            android:textColorHint="@color/white"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_rounded"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/form_vertical_marigin"
+            android:hint="@string/email"
+            android:textColorHint="@color/white"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_rounded"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/form_vertical_marigin"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/white"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_rounded"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/form_vertical_marigin"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/white"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/forgotloginLayout"
+        android:layout_below="@id/inputLayout"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/form_vertical_marigin">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/button_rounded"
+            android:text="@string/register"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:textSize="20sp" />
+    </RelativeLayout>
 </RelativeLayout>
