@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "179984549907",
+    "firebase_url": "https://skamper-bc9d8.firebaseio.com",
+    "project_id": "skamper-bc9d8",
+    "storage_bucket": "skamper-bc9d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179984549907:android:49d7d79553e9b02a",
+        "android_client_info": {
+          "package_name": "com.workspaceapp.skamper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179984549907-473oj7teompirgmatsfc0flr55j2reus.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.workspaceapp.skamper",
+            "certificate_hash": "b834acabf416271bfd7f1e7e260c94445fa51bc3"
+          }
+        },
+        {
+          "client_id": "179984549907-grgrogk07neu1htn5dk7r0107m95nmtm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbK1lwLAB56Vxd6tvlCf97vomkO1GJMVU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179984549907-grgrogk07neu1htn5dk7r0107m95nmtm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

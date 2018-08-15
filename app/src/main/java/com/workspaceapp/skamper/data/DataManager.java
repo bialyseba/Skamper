@@ -1,14 +1,18 @@
 package com.workspaceapp.skamper.data;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.workspaceapp.skamper.data.network.FirebaseHelper;
 import com.workspaceapp.skamper.data.prefs.PreferencesHelper;
 
-public interface DataManager extends PreferencesHelper {
+import java.security.NoSuchAlgorithmException;
+
+public interface DataManager extends PreferencesHelper, FirebaseHelper {
 
     void setUserAsLoggedOut();
 
     void updateUserInfo(
             String email,
-            String password);
+            String password) throws NoSuchAlgorithmException;
 
     enum LoggedInMode {
 

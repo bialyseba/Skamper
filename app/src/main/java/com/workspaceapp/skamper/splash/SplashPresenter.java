@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.workspaceapp.skamper.data.AppDataManager;
 import com.workspaceapp.skamper.data.DataManager;
+import com.workspaceapp.skamper.data.network.AppFirebaseHelper;
 import com.workspaceapp.skamper.data.prefs.AppPreferencesHelper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -20,6 +21,7 @@ public class SplashPresenter implements SplashContract.Presenter{
 
         mStartView.setPresenter(this);
     }
+
     @Override
     public void start(Context context) {
         new Handler().postDelayed(() -> decideNextActivity(context), 3000);
@@ -27,11 +29,15 @@ public class SplashPresenter implements SplashContract.Presenter{
 
     @Override
     public void decideNextActivity(Context context) {
-        if (AppDataManager.getInstance(AppPreferencesHelper.getInstance()).getCurrentUserLoggedInMode(context)
+        if (AppDataManager.getInstance().getCurrentUserLoggedInMode(context)
                 == DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType()) {
             mStartView.openLoginActivity();
         } else {
-            mStartView.openMainActivity();
+            if(AppDataManager.getInstance().getCurrentUser() == null){
+                //TODO login
+            }else{
+                mStartView.openMainActivity();
+            }
         }
     }
 }

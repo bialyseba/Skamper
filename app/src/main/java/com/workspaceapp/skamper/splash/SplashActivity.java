@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.workspaceapp.skamper.R;
+import com.workspaceapp.skamper.data.network.AppFirebaseHelper;
 import com.workspaceapp.skamper.utils.ActivityUtils;
 
 public class SplashActivity extends AppCompatActivity {
@@ -26,6 +27,5 @@ public class SplashActivity extends AppCompatActivity {
 
         // Create the presenter
         mSplashPresenter = new SplashPresenter(splashFragment);
-
     }
 }

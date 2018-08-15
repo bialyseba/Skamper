@@ -9,4 +9,8 @@ public interface PreferencesHelper {
     int getCurrentUserLoggedInMode(Context context);
 
     void setCurrentUserLoggedInMode(Context context, DataManager.LoggedInMode mode);
+
+    void setEmail(String email);
+
+    void setHashedPassword(String hashedPassword);
 }
