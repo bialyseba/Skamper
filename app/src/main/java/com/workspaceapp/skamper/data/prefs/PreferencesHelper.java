@@ -13,4 +13,8 @@ public interface PreferencesHelper {
     void setEmail(String email);
 
     void setHashedPassword(String hashedPassword);
+
+    void clearEmail();
+
+    void clearHashedPassword();
 }

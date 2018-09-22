@@ -12,4 +12,10 @@
     <string name="username">Username</string>
     <string name="confirm_password">Confirm password</string>
     <string name="register">Register</string>
+    <string name="wrong_email">Wrong email address</string>
+    <string name="empty_field">Empty field</string>
+    <string name="username_to_short">Username too short</string>
+    <string name="username_already_exists">Username already exists</string>
+    <string name="password_too_short">Password too short</string>
+    <string name="password_not_same">Passwords are not same</string>
 </resources>

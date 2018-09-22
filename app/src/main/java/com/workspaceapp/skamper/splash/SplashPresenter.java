@@ -35,6 +35,15 @@ public class SplashPresenter implements SplashContract.Presenter{
         } else {
             if(AppDataManager.getInstance().getCurrentUser() == null){
                 //TODO login
+                if(AppDataManager.getInstance().getCurrentUserLoggedInMode(context) == DataManager.LoggedInMode.LOGGED_IN_MODE_GOOGLE.getType()){
+
+                }else if (AppDataManager.getInstance().getCurrentUserLoggedInMode(context) == DataManager.LoggedInMode.LOGGED_IN_MODE_FB.getType()){
+
+                }else if(AppDataManager.getInstance().getCurrentUserLoggedInMode(context) == DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER.getType()){
+
+                }else{
+
+                }
             }else{
                 mStartView.openMainActivity();
             }

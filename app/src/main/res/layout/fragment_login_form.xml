@@ -13,6 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_rounded"
+            android:id="@+id/emailEditText"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/form_vertical_marigin"
@@ -22,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_rounded"
+            android:id="@+id/passwordEditText"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/form_vertical_marigin"
@@ -49,6 +51,7 @@
             android:layout_alignParentEnd="true"
             android:background="@drawable/button_rounded"
             android:text="@string/login"
+            android:id="@+id/submitLoginButton"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="normal"
@@ -79,32 +82,10 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/googleButton"
                 android:background="@drawable/ic_google_plus"
                 android:layout_gravity="start"
                 android:layout_marginStart="@dimen/center_axis_marigin"/>
         </FrameLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dont_have_account"
-            android:textColor="@color/white"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_up"
-            android:textColor="@color/light_Green"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/interjection"
-            android:textColor="@color/white"/>
     </LinearLayout>
 </RelativeLayout>

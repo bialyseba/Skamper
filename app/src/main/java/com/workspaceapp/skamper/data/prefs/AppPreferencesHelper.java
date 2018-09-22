@@ -32,4 +32,14 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public void setHashedPassword(String hashedPassword) {
         //TODO
     }
+
+    @Override
+    public void clearEmail() {
+        //TODO
+    }
+
+    @Override
+    public void clearHashedPassword() {
+        //TODO
+    }
 }

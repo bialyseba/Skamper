@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ValueEventListener;
 import com.workspaceapp.skamper.data.network.AppFirebaseHelper;
 import com.workspaceapp.skamper.data.network.FirebaseHelper;
 import com.workspaceapp.skamper.data.prefs.AppPreferencesHelper;
@@ -71,6 +72,22 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void clearEmail() {
+        if(mPreferencesHelper == null){
+            mPreferencesHelper = new AppPreferencesHelper();
+        }
+        mPreferencesHelper.clearEmail();
+    }
+
+    @Override
+    public void clearHashedPassword() {
+        if(mPreferencesHelper == null){
+            mPreferencesHelper = new AppPreferencesHelper();
+        }
+        mPreferencesHelper.clearHashedPassword();
+    }
+
+    @Override
     public FirebaseUser getCurrentUser() {
         if(mFirebaseHelper == null){
             mFirebaseHelper = new AppFirebaseHelper();
@@ -79,18 +96,34 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void signInWithEmailAndPassword(String email, String password, OnCompleteListener<AuthResult> listener) {
+    public void signInWithEmailAndPassword(String email, String hashedPassword, OnCompleteListener<AuthResult> listener) {
         if(mFirebaseHelper == null){
             mFirebaseHelper = new AppFirebaseHelper();
         }
-        mFirebaseHelper.signInWithEmailAndPassword(email, password, listener);
+        mFirebaseHelper.signInWithEmailAndPassword(email, hashedPassword, listener);
     }
 
     @Override
-    public void createUserWithEmailAndPassword(String email, String password, OnCompleteListener<AuthResult> listener) {
+    public void createUserWithEmailAndPassword(String email, String hashedPassword, OnCompleteListener<AuthResult> listener) {
         if(mFirebaseHelper == null){
             mFirebaseHelper = new AppFirebaseHelper();
         }
-        mFirebaseHelper.createUserWithEmailAndPassword(email, password, listener);
+        mFirebaseHelper.createUserWithEmailAndPassword(email, hashedPassword, listener);
+    }
+
+    @Override
+    public void existsEmailOnDb(String email, ValueEventListener valueEventListener) {
+        if(mFirebaseHelper == null){
+            mFirebaseHelper = new AppFirebaseHelper();
+        }
+        mFirebaseHelper.existsEmailOnDb(email, valueEventListener);
+    }
+
+    @Override
+    public void addUserToDb(String username, String email, String provider) {
+        if(mFirebaseHelper == null){
+            mFirebaseHelper = new AppFirebaseHelper();
+        }
+        mFirebaseHelper.addUserToDb(username, email, provider);
     }
 }
