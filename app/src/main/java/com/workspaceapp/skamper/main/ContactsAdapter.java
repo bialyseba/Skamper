@@ -10,9 +10,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.sinch.android.rtc.PushPair;
+import com.sinch.android.rtc.calling.Call;
+import com.sinch.android.rtc.calling.CallListener;
 import com.workspaceapp.skamper.R;
+import com.workspaceapp.skamper.SkamperApplication;
+import com.workspaceapp.skamper.calling.CallingActivity;
 import com.workspaceapp.skamper.conversation.ConversationActivity;
+
+import java.util.List;
+
+import static com.workspaceapp.skamper.SkamperApplication.call;
+import static com.workspaceapp.skamper.SkamperApplication.sinchClient;
 
 public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyViewHolder> {
     private String[] mDataset;
@@ -36,8 +47,13 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
                 @Override
                 public void onClick(View view) {
                     openConversationActivity();
+                    //sinchClient.getCallClient().callUser("call-recipient-id");
+                    //TODO dodac nazwe usera koncowego
+                    //MainActivity.callUser();
+                    //call.addCallListener(new MainActivity.SinchCallListener());
                 }
             });
+
         }
         private void openConversationActivity(){
             mContext.startActivity(new Intent(mContext, ConversationActivity.class));
