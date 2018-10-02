@@ -31,7 +31,7 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.google.guava:guava:26.0-jre'
     implementation "com.google.dagger:dagger:2.8"
     annotationProcessor "com.google.dagger:dagger-compiler:2.8"
@@ -39,6 +39,20 @@ dependencies {
     implementation 'javax.inject:javax.inject:1'
     testImplementation 'junit:junit:4.12'
     implementation 'com.google.android.gms:play-services-auth:16.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+repositories {
+    flatDir {
+        dirs 'sinch-android-rtc-3.12.5'
+    }
+}
+dependencies {
+    implementation(name: 'sinch-android-rtc', version: '+', ext: 'aar')
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}
