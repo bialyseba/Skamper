@@ -39,11 +39,11 @@ dependencies {
     implementation 'javax.inject:javax.inject:1'
     testImplementation 'junit:junit:4.12'
     implementation 'com.google.android.gms:play-services-auth:16.0.0'
-    implementation(name:'sinch-android-rtc', version:'+', ext:'aar')
+    implementation(name: 'sinch-android-rtc', version: '+', ext: 'aar')
 }
 
 apply plugin: 'com.google.gms.google-services'
-repositories{
+repositories {
     flatDir {
         dirs '/libs'
     }

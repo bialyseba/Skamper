@@ -7,16 +7,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.sinch.android.rtc.PushPair;
 import com.sinch.android.rtc.Sinch;
 import com.sinch.android.rtc.SinchClient;
 import com.sinch.android.rtc.calling.Call;
+import com.sinch.android.rtc.calling.CallListener;
 import com.workspaceapp.skamper.R;
+import com.workspaceapp.skamper.SkamperApplication;
+import com.workspaceapp.skamper.calling.CallingActivity;
+
+import java.util.List;
+
+import static com.workspaceapp.skamper.SkamperApplication.call;
 
 public class MainActivity extends AppCompatActivity {
-    private Call call;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +46,19 @@ public class MainActivity extends AppCompatActivity {
         sinchClient.setSupportCalling(true);
         sinchClient.start();
         button.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                sinchClient.getCallClient().callUser("call-recipient-id");
+                //sinchClient.getCallClient().callUser("call-recipient-id");
                 //TODO dodac nazwe usera koncowego
+                if (call == null) {
+                    call = sinchClient.getCallClient().callUser("call-recipient-id");
+                    button.setText("Hang Up");
+                } else {
+                    call.hangup();
+
+                }
+                call.addCallListener(new SinchCallListener());
             }
         });
 
@@ -50,4 +68,33 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(context, MainActivity.class);
         return intent;
     }
+    class SinchCallListener implements CallListener {
+        @Override
+        public void onCallEnded(Call endedCall) {
+            SkamperApplication.call = null;
+            //button.setText("Call");
+            Toast toast = Toast.makeText(getApplicationContext()," polaczenie zakonczone", Toast.LENGTH_SHORT);
+            toast.show();
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+        }
+        @Override
+        public void onCallEstablished(Call establishedCall) {
+            Toast toast = Toast.makeText(getApplicationContext(),"Nawiazano polaczenie", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        @Override
+        public void onCallProgressing(Call progressingCall) {
+            Toast toast = Toast.makeText(getApplicationContext(),"Dryndam", Toast.LENGTH_SHORT);
+            toast.show();
+            Intent intent = new Intent(getApplicationContext(),CallingActivity.class);
+            startActivity(intent);
+        }
+        @Override
+        public void onShouldSendPushNotification(Call call, List<PushPair> pushPairs) {
+            //don't worry about this right now
+        }
+    }
 }
+
+
