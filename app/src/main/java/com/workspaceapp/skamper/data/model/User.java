@@ -16,18 +16,18 @@ public class User {
 
     }
 
-    public User(String username, String email, String hashedPassword){
+    public User(String username, String email, String provider){
 
         this.username = username;
         this.email = email;
-        this.provider = hashedPassword;
+        this.provider = provider;
     }
 
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("username", username);
-        result.put("password", provider);
+        result.put("provider", provider);
         result.put("email", email);
         return result;
     }

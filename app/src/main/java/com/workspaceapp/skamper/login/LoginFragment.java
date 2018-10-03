@@ -39,6 +39,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private Button registerButton;
     private Button loginButton;
     private ImageButton googleButton;
+    private ImageButton fbButton;
     private EditText usernameEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -84,6 +85,10 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             googleButton.setOnClickListener(view -> {
                 submitGoogleLogin(getActivity());
             });
+            fbButton = root.findViewById(R.id.facebookButton);
+            fbButton.setOnClickListener(view -> {
+                LoginActivity.loginButton.performClick();
+            });
         }else{
             usernameEditText = root.findViewById(R.id.usernameEditText);
             emailEditText = root.findViewById(R.id.emailEditText);
@@ -102,7 +107,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void submitLoginForm() {
         LoginFormValidator validator = new LoginFormValidator(emailEditText, passwordEditText);
         if(validator.isValid()){
-            mPresenter.loginUser(emailEditText.getText().toString(), passwordEditText.getText().toString());
+            mPresenter.loginUser(emailEditText.getText().toString(), passwordEditText.getText().toString(), getContext());
         }
     }
 
@@ -116,6 +121,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void startMainActivity(){
+        getActivity().finish();
         startActivity(MainActivity.getStartIntent(this.getContext()));
     }
 

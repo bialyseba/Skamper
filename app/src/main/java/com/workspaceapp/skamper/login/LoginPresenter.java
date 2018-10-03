@@ -76,12 +76,13 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void loginUser(String email, String password) {
+    public void loginUser(String email, String password, Context context) {
         try {
             AppDataManager.getInstance().signInWithEmailAndPassword(email, HashHelper.hashString(password), new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+                        AppDataManager.getInstance().setCurrentUserLoggedInMode(context, DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER);
                         mLoginView.startMainActivity();
                     }else{
                         mLoginView.showDialogBox(Objects.requireNonNull(task.getException()).getMessage());
@@ -110,10 +111,18 @@ public class LoginPresenter implements LoginContract.Presenter {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("LoginPresenter", "signInWithCredential:success");
                             String email = mAuth.getCurrentUser().getEmail();
+                            String username = mAuth.getCurrentUser().getDisplayName();
                             AppDataManager.getInstance().existsEmailOnDb(email, new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    
+                                    if(dataSnapshot.exists()){
+                                        Log.d("LoginPresenter", email + " exists");
+                                    }else{
+                                        Log.d("LoginPresenter", email + " not exists");
+                                        AppDataManager.getInstance().addUserToDb(username, email, "GOOGLE");
+                                    }
+                                    AppDataManager.getInstance().setCurrentUserLoggedInMode(context, DataManager.LoggedInMode.LOGGED_IN_MODE_GOOGLE);
+                                    mLoginView.startMainActivity();
                                 }
 
                                 @Override
@@ -126,10 +135,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                             AppDataManager.getInstance().clearHashedPassword();
                             mLoginView.startMainActivity();*/
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("LoginPresenter", "signInWithCredential:failure", task.getException());
-                            //Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                            //updateUI(null);
+                            mLoginView.showDialogBox(Objects.requireNonNull(task.getException()).getMessage());
                         }
 
                         // ...

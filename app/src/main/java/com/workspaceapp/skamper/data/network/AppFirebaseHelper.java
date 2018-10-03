@@ -47,7 +47,8 @@ public class AppFirebaseHelper implements FirebaseHelper{
         mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = mDatabase.getReference("Users");
         Query query = myRef.orderByChild("email").equalTo(email);
-        query.addValueEventListener(valueEventListener);
+        //query.addValueEventListener(valueEventListener);
+        query.addListenerForSingleValueEvent(valueEventListener);
     }
 
     @Override
