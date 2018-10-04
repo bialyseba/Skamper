@@ -8,13 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.WindowManager;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.sinch.android.rtc.Sinch;
 import com.workspaceapp.skamper.R;
 import com.workspaceapp.skamper.Service.ConnectionService;
-
-import static com.workspaceapp.skamper.SkamperApplication.sinchClient;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mContactsRecyclerView;
@@ -25,8 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String username = user.getEmail();
+       
         //TextView textView = findViewById(R.id.testTextview);
         //textView.setText(username);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -42,16 +36,7 @@ public class MainActivity extends AppCompatActivity {
         mContactsRecyclerView.setAdapter(mContactsAdapter);
 
         //Button button = (Button) findViewById(R.id.button);
-        sinchClient = Sinch.getSinchClientBuilder()
-                .context(this)
-                .userId(user.getEmail())
-                .applicationKey("ae90c73b-4fcd-4a40-8a5b-ab8a0adb642a")
-                .applicationSecret("0li5kxQXtUyF+D9ruk7MHg==")
-                .environmentHost("sandbox.sinch.com")
-                .build();
-        sinchClient.setSupportCalling(true);
-        sinchClient.startListeningOnActiveConnection();
-        sinchClient.start();
+
         startService(new Intent(this, ConnectionService.class));
         //sinchClient.getCallClient().addCallClientListener(new SinchCallClientListener());
 
