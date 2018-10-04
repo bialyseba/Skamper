@@ -6,26 +6,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.sinch.android.rtc.PushPair;
 import com.sinch.android.rtc.Sinch;
-import com.sinch.android.rtc.SinchClient;
-import com.sinch.android.rtc.calling.Call;
-import com.sinch.android.rtc.calling.CallListener;
 import com.workspaceapp.skamper.R;
-import com.workspaceapp.skamper.SkamperApplication;
-import com.workspaceapp.skamper.calling.CallingActivity;
+import com.workspaceapp.skamper.Service.ConnectionService;
 
-import java.util.List;
-
-import static com.workspaceapp.skamper.SkamperApplication.call;
 import static com.workspaceapp.skamper.SkamperApplication.sinchClient;
 
 public class MainActivity extends AppCompatActivity {
@@ -62,7 +50,11 @@ public class MainActivity extends AppCompatActivity {
                 .environmentHost("sandbox.sinch.com")
                 .build();
         sinchClient.setSupportCalling(true);
+        sinchClient.startListeningOnActiveConnection();
         sinchClient.start();
+        startService(new Intent(this, ConnectionService.class));
+        //sinchClient.getCallClient().addCallClientListener(new SinchCallClientListener());
+
         /*button.setOnClickListener(new View.OnClickListener() {
 
             @Override
