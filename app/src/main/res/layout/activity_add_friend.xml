@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    app:layout_goneMarginBottom="@dimen/activity_vertical_margin"
+    tools:context=".addfriend.AddFriendActivity">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adduserEditText"
+        android:backgroundTint="@color/dark_grey"
+        android:hint="Input username or email"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addUserSearchButton"
+        android:layout_below="@id/adduserEditText"
+        android:text="Search friend"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_centerHorizontal="true"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_rounded"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/foundUsersLabel"
+        android:layout_below="@id/addUserSearchButton"
+        android:text="Found users:"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/dark_grey"
+        android:textSize="20sp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:scrollbars="vertical"
+        android:layout_below="@id/foundUsersLabel"
+        android:id="@+id/addFriendsRecyclerView"/>
+</RelativeLayout>

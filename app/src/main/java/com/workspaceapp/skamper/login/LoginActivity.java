@@ -215,7 +215,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Log.d("LoginPresenter", email + " exists");
                                     }else{
                                         Log.d("LoginPresenter", email + " not exists");
-                                        AppDataManager.getInstance().addUserToDb(username, email, "FACEBOOK");
+                                        AppDataManager.getInstance().addUserToDb(username, email.toLowerCase(), "FACEBOOK");
                                     }
                                     AppDataManager.getInstance().setCurrentUserLoggedInMode(LoginActivity.this, DataManager.LoggedInMode.LOGGED_IN_MODE_FB);
                                     loginFragment.startMainActivity();

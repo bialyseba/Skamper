@@ -16,6 +16,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.workspaceapp.skamper.data.model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,7 +57,7 @@ public class AppFirebaseHelper implements FirebaseHelper{
         mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = mDatabase.getReference();
         String key = myRef.child("Users").push().getKey();
-        User user = new User(username,email, provider);
+        User user = new User(username,email, provider, false, new ArrayList<>(), "");
         Map<String, Object> userValues = user.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/Users/" + key, userValues);

@@ -29,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/messageButton"
+                android:visibility="gone"
                 android:background="@drawable/ic_email"
                 android:layout_gravity="center"/>
         </FrameLayout>
@@ -41,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/callButton"
+                android:visibility="gone"
                 android:background="@drawable/ic_phone"
                 android:layout_gravity="center"/>
         </FrameLayout>

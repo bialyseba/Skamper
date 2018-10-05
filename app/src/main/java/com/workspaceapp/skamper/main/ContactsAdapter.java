@@ -19,20 +19,22 @@ import com.workspaceapp.skamper.R;
 import com.workspaceapp.skamper.SkamperApplication;
 import com.workspaceapp.skamper.calling.CallingActivity;
 import com.workspaceapp.skamper.conversation.ConversationActivity;
+import com.workspaceapp.skamper.data.model.Contact;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.workspaceapp.skamper.SkamperApplication.call;
 import static com.workspaceapp.skamper.SkamperApplication.sinchClient;
 
 public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyViewHolder> {
-    private String[] mDataset;
+    public ArrayList<Contact> mDataset;
     private Context mContext;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         public TextView mTextView;
         public ImageButton messagesImageButton;
@@ -41,27 +43,28 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
             super(view);
             mContext = context;
             mTextView = (TextView) view.findViewById(R.id.contactTextView);
-            messagesImageButton =  view.findViewById(R.id.messageButton);
-
-            messagesImageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    openConversationActivity();
-                    //sinchClient.getCallClient().callUser("call-recipient-id");
-                    //TODO dodac nazwe usera koncowego
-                    //MainActivity.callUser();
-                    //call.addCallListener(new MainActivity.SinchCallListener());
-                }
-            });
-
+            view.setOnClickListener(this);
         }
-        private void openConversationActivity(){
-            mContext.startActivity(new Intent(mContext, ConversationActivity.class));
+
+        private void openConversationActivity(Contact contact){
+            mContext.startActivity(new Intent(mContext, ConversationActivity.class)
+                    .putExtra("email", contact.getEmail())
+                    .putExtra("username", contact.getUsername()));
+        }
+
+        @Override
+        public void onClick(View view) {
+            int pos = getAdapterPosition();
+
+            if(pos!= RecyclerView.NO_POSITION){
+                Contact contact = mDataset.get(pos);
+                openConversationActivity(contact);
+            }
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ContactsAdapter(Context context, String[] myDataset) {
+    public ContactsAdapter(Context context, ArrayList<Contact> myDataset) {
         mDataset = myDataset;
         mContext = context;
     }
@@ -81,14 +84,14 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset[position]);
+        holder.mTextView.setText(mDataset.get(position).getUsername());
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 
 

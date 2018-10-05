@@ -17,6 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -57,14 +58,23 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void registerUser(String username, String email, String password) {
+    public void registerUser(Context context, String username, String email, String password) {
         try {
             AppDataManager.getInstance().createUserWithEmailAndPassword(email, HashHelper.hashString(password), new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        AppDataManager.getInstance().addUserToDb(username, email, "EMAIL");
-                        mLoginView.startMainActivity();
+                        FirebaseUser user = AppDataManager.getInstance().getCurrentUser();
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(username).build();
+                        user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                AppDataManager.getInstance().addUserToDb(username, email.toLowerCase(), "EMAIL");
+                                AppDataManager.getInstance().setCurrentUserLoggedInMode(context, DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER);
+                                mLoginView.startMainActivity();
+                            }
+                        });
                     }else{
                         mLoginView.showDialogBox(Objects.requireNonNull(task.getException()).getMessage());
                     }
@@ -119,7 +129,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                                         Log.d("LoginPresenter", email + " exists");
                                     }else{
                                         Log.d("LoginPresenter", email + " not exists");
-                                        AppDataManager.getInstance().addUserToDb(username, email, "GOOGLE");
+                                        AppDataManager.getInstance().addUserToDb(username, email.toLowerCase(), "GOOGLE");
                                     }
                                     AppDataManager.getInstance().setCurrentUserLoggedInMode(context, DataManager.LoggedInMode.LOGGED_IN_MODE_GOOGLE);
                                     mLoginView.startMainActivity();

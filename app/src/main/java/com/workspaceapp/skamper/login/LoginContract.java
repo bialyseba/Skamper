@@ -18,7 +18,7 @@ public interface LoginContract {
     }
 
     interface Presenter extends BasePresenter {
-        void registerUser(String username, String email, String password);
+        void registerUser(Context context, String username, String email, String password);
         void loginUser(String email, String password, Context context);
         void signInGoogle(Activity activity);
         void firebaseAuthWithGoogle(GoogleSignInAccount acct, Context context);

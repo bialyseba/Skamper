@@ -115,7 +115,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void submitRegisterForm() {
         RegisterFormValidator validator = new RegisterFormValidator(usernameEditText, emailEditText, passwordEditText, rePasswordEditText);
         if(validator.isValid()){
-            mPresenter.registerUser(usernameEditText.getText().toString(), emailEditText.getText().toString(), passwordEditText.getText().toString());
+            mPresenter.registerUser(getContext(), usernameEditText.getText().toString(), emailEditText.getText().toString(), passwordEditText.getText().toString());
         }
     }
 
