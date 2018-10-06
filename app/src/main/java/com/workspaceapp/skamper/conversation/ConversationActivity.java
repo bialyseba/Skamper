@@ -68,5 +68,13 @@ public class ConversationActivity extends AppCompatActivity {
         TextView contactTextView = toolbar.findViewById(R.id.contactTextView);
         contactTextView.setText(contact.getUsername());
     }
-
+    public void callUserVideo(String recipientId){
+        if (call == null) {
+            call = sinchClient.getCallClient().callUserVideo(recipientId);
+            Intent intent = new Intent(getApplicationContext(),CallingActivity.class);
+            startActivity(intent);
+        } else {
+            call.hangup();
+        }
+    }
 }

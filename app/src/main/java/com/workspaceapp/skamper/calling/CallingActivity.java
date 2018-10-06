@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.sinch.android.rtc.PushPair;
 import com.sinch.android.rtc.calling.Call;
 import com.sinch.android.rtc.calling.CallListener;
+import com.sinch.android.rtc.video.VideoController;
 import com.workspaceapp.skamper.R;
 import com.workspaceapp.skamper.SkamperApplication;
 import com.workspaceapp.skamper.main.MainActivity;
@@ -26,6 +27,7 @@ public class CallingActivity extends AppCompatActivity {
 
         Button buttonHangUp = findViewById(R.id.buttonHangUp);
         Button buttonAnswer = findViewById(R.id.buttonAnswer);
+        Button buttonVideo = findViewById(R.id.buttonVideo);
         SkamperApplication.call.addCallListener(new SinchCallListener());
 
         buttonHangUp.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +40,13 @@ buttonAnswer.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
         SkamperApplication.call.answer();
+
+    }
+
+});
+buttonVideo.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
 
     }
 });
@@ -70,5 +79,15 @@ buttonAnswer.setOnClickListener(new View.OnClickListener() {
         public void onShouldSendPushNotification(Call call, List<PushPair> pushPairs) {
             //don't worry about this right now
         }
+        public void onVideoTrackAdded(Call call) {
+            // Get a reference to your SinchClient, in the samples this is done through the service interface:
+            VideoController vc = SkamperApplication.sinchClient.getVideoController();
+            View myPreview = vc.getLocalView();
+            View remoteView = vc.getRemoteView();
+            // Add the views to your view hierarchy
+        //...
+        }
+
     }
+
 }

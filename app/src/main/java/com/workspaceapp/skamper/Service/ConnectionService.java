@@ -29,7 +29,11 @@ public class ConnectionService extends android.app.Service {
                 .environmentHost("sandbox.sinch.com")
                 .build();
         sinchClient.setSupportCalling(true);
+        sinchClient.setSupportMessaging(true);
+        //sinchClient.setSupportManagedPush(true);
         sinchClient.startListeningOnActiveConnection();
+        sinchClient.setSupportActiveConnectionInBackground(true);
+
         sinchClient.start();
         SkamperApplication.sinchClient.getCallClient().addCallClientListener(new SinchCallClientListener());
     }

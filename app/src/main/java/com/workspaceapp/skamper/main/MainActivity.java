@@ -11,12 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -28,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.workspaceapp.skamper.R;
 import com.workspaceapp.skamper.Service.ConnectionService;
+import com.workspaceapp.skamper.SkamperApplication;
 import com.workspaceapp.skamper.addfriend.AddFriendActivity;
 import com.workspaceapp.skamper.data.AppDataManager;
 import com.workspaceapp.skamper.data.DataManager;
@@ -172,9 +171,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clickLogout(){
+        SkamperApplication.sinchClient.stopListeningOnActiveConnection();
+        SkamperApplication.sinchClient.terminate();
         AppDataManager.getInstance().setCurrentUserLoggedInMode(this, DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT);
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
+
     }
 
     private void showDialogBox(String message){
