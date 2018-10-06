@@ -105,7 +105,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/light_Green"
         app:borderWidth="0dp"
         android:src="@drawable/ic_adduser" />
 </RelativeLayout>
