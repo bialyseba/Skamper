@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -110,6 +111,10 @@ public class NewContactsAdapter extends RecyclerView.Adapter<NewContactsAdapter.
                                     .load(uri)
                                     .apply(RequestOptions.circleCropTransform())
                                     .into(holder.mImageView);
+                        }else{
+                            Glide.with(mContext)
+                                    .clear(holder.mImageView);
+                            holder.mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_user_round));
                         }
                     }
                 }
