@@ -11,12 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.workspaceapp.skamper.R;
+import com.workspaceapp.skamper.data.AppDataManager;
 import com.workspaceapp.skamper.data.model.Contact;
 import com.workspaceapp.skamper.main.ContactsAdapter;
 import com.workspaceapp.skamper.main.MainActivity;
@@ -28,9 +30,14 @@ public class AddFriendActivity extends AppCompatActivity {
     private RecyclerView mNewContactsRecyclerView;
     private RecyclerView.Adapter mNewContactsAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
     private Button searchButton;
     private EditText searchEditText;
+    private TextView foundTextView;
+    private TextView notfoundTextView;
+
     private FirebaseDatabase mDatabase;
+    private ArrayList<Contact> mNewContacts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +60,13 @@ public class AddFriendActivity extends AppCompatActivity {
         mContacts.add(new Contact("ssdfdsf@eep.pl", "user dwa"));
         mContacts.add(new Contact("ssdfdsf@eep.pl", "user trzy"));
 
-        mNewContactsAdapter = new NewContactsAdapter(this, mContacts);
-        mNewContactsRecyclerView.setAdapter(mNewContactsAdapter);
+        //mNewContactsAdapter = new NewContactsAdapter(this, mContacts);
+        //mNewContactsRecyclerView.setAdapter(mNewContactsAdapter);
 
         searchButton = findViewById(R.id.addUserSearchButton);
         searchEditText = findViewById(R.id.adduserEditText);
+        foundTextView = findViewById(R.id.foundUsersLabel);
+        notfoundTextView = findViewById(R.id.notFoundInfoTextView);
         setSearchButtonActive(false);
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -85,7 +94,7 @@ public class AddFriendActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                clickSearchButton(searchEditText.getText().toString());
             }
         });
     }
@@ -107,10 +116,33 @@ public class AddFriendActivity extends AppCompatActivity {
     }
 
     private void clickSearchButton(String string){
-        mDatabase.getReference().child("Users").orderByChild("email").startAt(string).addValueEventListener(new ValueEventListener() {
+        mDatabase.getReference().child("Users").orderByChild("username").startAt(string).endAt(string + "\uf8ff").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                
+                mNewContacts = new ArrayList<>();
+                for(DataSnapshot d : dataSnapshot.getChildren()){
+                    Log.d("AddFriendActivity", d.getKey());
+                    Contact contact = new Contact();
+                    for(DataSnapshot ds : d.getChildren()){
+                        Log.d("AddFriendActivity", ds.getKey());
+                        if(ds.getKey().equals("email")){
+                            contact.setEmail((String) ds.getValue());
+                        }
+                        if(ds.getKey().equals("username")){
+                            contact.setUsername((String) ds.getValue());
+                        }
+                    }
+                    if(!contact.getEmail().equals(AppDataManager.getInstance().getCurrentUser().getEmail())){
+                        mNewContacts.add(contact);
+                    }
+                }
+                if(mNewContacts.size() > 0){
+                    showFoundUsers();
+                    mNewContactsAdapter = new NewContactsAdapter(AddFriendActivity.this, mNewContacts);
+                    mNewContactsRecyclerView.setAdapter(mNewContactsAdapter);
+                }else{
+                    showNotFoundUsers();
+                }
             }
 
             @Override
@@ -118,5 +150,16 @@ public class AddFriendActivity extends AppCompatActivity {
 
             }
         });
+    }
+    private void showFoundUsers(){
+        notfoundTextView.setVisibility(View.GONE);
+        foundTextView.setVisibility(View.VISIBLE);
+        mNewContactsRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private void showNotFoundUsers(){
+        foundTextView.setVisibility(View.GONE);
+        mNewContactsRecyclerView.setVisibility(View.GONE);
+        notfoundTextView.setVisibility(View.VISIBLE);
     }
 }

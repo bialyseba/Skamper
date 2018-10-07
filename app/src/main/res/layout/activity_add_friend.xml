@@ -48,4 +48,14 @@
         android:visibility="gone"
         android:layout_below="@id/foundUsersLabel"
         android:id="@+id/addFriendsRecyclerView"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/notFoundInfoTextView"
+        android:visibility="gone"
+        android:text="No matches any user"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/addUserSearchButton"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"/>
 </RelativeLayout>

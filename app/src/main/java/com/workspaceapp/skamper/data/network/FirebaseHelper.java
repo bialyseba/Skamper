@@ -16,4 +16,8 @@ public interface FirebaseHelper {
     void existsEmailOnDb(String username, ValueEventListener valueEventListener);
 
     void addUserToDb(String username, String email, String hashedPassword);
+
+    void addContact(String username, String email, ValueEventListener valueEventListener);
+
+    void getPhotoUriOfSpecifiedUser(String email, ValueEventListener valueEventListener);
 }

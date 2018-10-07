@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.workspaceapp.skamper.data.AppDataManager;
 import com.workspaceapp.skamper.data.model.User;
 
 import java.util.ArrayList;
@@ -71,5 +72,17 @@ public class AppFirebaseHelper implements FirebaseHelper{
                 }
             }
         });
+    }
+
+    @Override
+    public void addContact(String username, String email, ValueEventListener valueEventListener) {
+        mDatabase = FirebaseDatabase.getInstance();
+        mDatabase.getReference().child("Users").orderByChild("email").equalTo(getCurrentUser().getEmail()).addListenerForSingleValueEvent(valueEventListener);
+    }
+
+    @Override
+    public void getPhotoUriOfSpecifiedUser(String email, ValueEventListener valueEventListener) {
+        mDatabase = FirebaseDatabase.getInstance();
+        mDatabase.getReference().child("Users").orderByChild("email").equalTo(email).addListenerForSingleValueEvent(valueEventListener);
     }
 }

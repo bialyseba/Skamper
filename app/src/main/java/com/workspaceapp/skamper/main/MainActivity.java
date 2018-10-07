@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.workspaceapp.skamper.R;
 import com.workspaceapp.skamper.Service.ConnectionService;
+import com.workspaceapp.skamper.SkamperApplication;
 import com.workspaceapp.skamper.addfriend.AddFriendActivity;
 import com.workspaceapp.skamper.data.AppDataManager;
 import com.workspaceapp.skamper.data.DataManager;
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         };
         mAuth.addAuthStateListener(mAuthListener);
 
-        mDatabase.getReference().child("Users").orderByChild("email").equalTo(AppDataManager.getInstance().getCurrentUser().getEmail()).addValueEventListener(new ValueEventListener() {
+        mDatabase.getReference().child("Users").orderByChild("email").equalTo(AppDataManager.getInstance().getCurrentUser().getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mContacts = new ArrayList<>();
@@ -116,8 +117,20 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
-                mContactsAdapter = new ContactsAdapter(MainActivity.this, mContacts);
-                mContactsRecyclerView.setAdapter(mContactsAdapter);
+                if(mContacts.size()>0){
+                    SkamperApplication.contacts = mContacts;
+                    SkamperApplication.contactsFor = AppDataManager.getInstance().getCurrentUser().getEmail();
+                    mContactsAdapter = new ContactsAdapter(MainActivity.this, mContacts);
+                    mContactsRecyclerView.setAdapter(mContactsAdapter);
+                }else{
+                    if(SkamperApplication.contactsFor.equals(AppDataManager.getInstance().getCurrentUser().getEmail())){
+                        mContactsAdapter = new ContactsAdapter(MainActivity.this, SkamperApplication.contacts);
+                    }else{
+                        SkamperApplication.contactsFor = AppDataManager.getInstance().getCurrentUser().getEmail();
+                        SkamperApplication.contacts = new ArrayList<>();
+                    }
+                }
+
             }
 
             @Override

@@ -126,4 +126,20 @@ public class AppDataManager implements DataManager {
         }
         mFirebaseHelper.addUserToDb(username, email, provider);
     }
+
+    @Override
+    public void addContact(String username, String email, ValueEventListener valueEventListener) {
+        if(mFirebaseHelper == null){
+            mFirebaseHelper = new AppFirebaseHelper();
+        }
+        mFirebaseHelper.addContact(username, email, valueEventListener);
+    }
+
+    @Override
+    public void getPhotoUriOfSpecifiedUser(String email, ValueEventListener valueEventListener) {
+        if(mFirebaseHelper == null){
+            mFirebaseHelper = new AppFirebaseHelper();
+        }
+        mFirebaseHelper.getPhotoUriOfSpecifiedUser(email, valueEventListener);
+    }
 }
