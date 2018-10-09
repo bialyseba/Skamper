@@ -3,16 +3,21 @@ package com.workspaceapp.skamper.main;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mContactsAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private FloatingActionButton mFloatingActionButton;
+    private ImageView popupMenuImageView;
+    //private EditText searchEditText;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
@@ -54,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        popupMenuImageView = findViewById(R.id.popupMenuImageView);
+        popupMenuImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO
+            }
+        });
 
         mFloatingActionButton = findViewById(R.id.fab);
         mFloatingActionButton.setOnClickListener(view -> startActivity(new Intent(this, AddFriendActivity.class)));
@@ -138,6 +153,33 @@ public class MainActivity extends AppCompatActivity {
                 showDialogBox(databaseError.getMessage());
             }
         });
+
+        /*searchEditText = findViewById(R.id.searchEditText);
+        searchEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    searchEditText.setCompoundDrawables(null, null, null, null);
+                }
+            }
+        });
+
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Log.d("MainActivity", editable.toString());
+            }
+        });*/
 
         startService(new Intent(this, ConnectionService.class));
     }
