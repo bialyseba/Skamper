@@ -2,6 +2,7 @@ package com.workspaceapp.skamper.Service;
 
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,6 +72,12 @@ public class ConnectionService extends android.app.Service {
                 Intent intent = new Intent(getApplicationContext(),CallingActivity.class);
                 startActivity(intent);
 
+            }
+else {
+                SkamperApplication.call = incomingCall;
+                Intent intent = new Intent(getApplicationContext(), CallingActivity.class);
+                startActivity(intent);
+            }
 
         }
     }

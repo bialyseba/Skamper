@@ -5,9 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,17 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.workspaceapp.skamper.R;
 import com.workspaceapp.skamper.main.MainActivity;
-import com.workspaceapp.skamper.utils.EditTextValidator;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class LoginFragment extends Fragment implements LoginContract.View {
@@ -121,8 +113,11 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void startMainActivity(){
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         getActivity().finish();
-        startActivity(MainActivity.getStartIntent(this.getContext()));
+        startActivity(intent);
+
+
     }
 
     @Override
