@@ -85,16 +85,31 @@
             android:layout_above="@id/sendLayout"
             android:background="@color/dark_grey"
             />
+
         <ListView
             android:id="@+id/messagesListView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:divider="@color/transparent"
+            android:layout_height="318dp"
+            android:layout_above="@id/dividerView"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:dividerHeight="10dp"
+            android:layout_marginBottom="141dp"
             android:layout_weight="0"
-            android:layout_above="@id/dividerView"
-            />
+            android:divider="@color/transparent"
+            android:dividerHeight="10dp" />
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adBannerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="58dp"
+            android:layout_marginBottom="101dp"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toBottomOf="@+id/relativeLayout"></com.google.android.gms.ads.AdView>
     </RelativeLayout>
 </LinearLayout>

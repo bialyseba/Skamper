@@ -17,6 +17,7 @@
         android:orientation="vertical"
         android:id="@+id/profileLayout"
         android:background="@color/colorPrimary">
+
         <FrameLayout
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -25,6 +26,7 @@
             android:background="@drawable/circle"
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true">
+
             <ImageView
                 android:layout_width="95dp"
                 android:layout_height="95dp"

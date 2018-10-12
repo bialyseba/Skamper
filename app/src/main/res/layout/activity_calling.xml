@@ -5,13 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".calling.CallingActivity">
+
+
+
     <Button
+        android:id="@+id/buttonHangUp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Hang up"
-        android:id="@+id/buttonHangUp"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="167dp"
+        android:text="Hang up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
     <Button
         android:id="@+id/buttonAnswer"
@@ -19,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="20dp"
         android:text="Answer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonHangUp" />
@@ -30,8 +37,36 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="28dp"
+
         android:text="Video"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonAnswer" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:padding="0dip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/remoteVideo"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal" />
+
+        <RelativeLayout
+            android:id="@+id/localVideo"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
