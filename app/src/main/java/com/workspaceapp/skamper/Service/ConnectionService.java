@@ -2,7 +2,7 @@ package com.workspaceapp.skamper.Service;
 
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,6 +42,8 @@ public class ConnectionService extends android.app.Service {
         sinchClient.setSupportCalling(true);
         sinchClient.setSupportMessaging(true);
         sinchClient.startListeningOnActiveConnection();
+        sinchClient.setSupportActiveConnectionInBackground(true);
+
         sinchClient.start();
         SkamperApplication.sinchClient.getCallClient().addCallClientListener(new SinchCallClientListener());
 
@@ -56,10 +58,18 @@ public class ConnectionService extends android.app.Service {
     class SinchCallClientListener implements CallClientListener {
         @Override
         public void onIncomingCall(CallClient callClient, Call incomingCall) {
+            if (incomingCall.getDetails().isVideoOffered())
+            {
 
-            SkamperApplication.call = incomingCall;
-            Intent intent = new Intent(getApplicationContext(),CallingActivity.class);
-            startActivity(intent);
+                SkamperApplication.videoInitiator = true;
+                SkamperApplication.call = incomingCall;
+
+
+
+                Toast.makeText(getApplicationContext(), "Za chwilę nastąpi połączenie ",
+                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(),CallingActivity.class);
+                startActivity(intent);
 
 
         }
