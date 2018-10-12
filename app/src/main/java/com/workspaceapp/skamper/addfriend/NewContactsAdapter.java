@@ -154,7 +154,7 @@ public class NewContactsAdapter extends RecyclerView.Adapter<NewContactsAdapter.
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 for(DataSnapshot d : dataSnapshot.getChildren()){
-                                    if(d.child("contacts").exists()){
+                                    //if(d.child("contacts").exists()){
                                         Map<String, Object> userValues = contact.toMap();
                                         Map<String, Object> childUpdates = new HashMap<>();
                                         String key = d.child("contacts").getRef().push().getKey();
@@ -163,7 +163,7 @@ public class NewContactsAdapter extends RecyclerView.Adapter<NewContactsAdapter.
                                         Intent intent= new Intent(mContext, MainActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                         mContext.startActivity(intent);
-                                    }
+                                    //}
                                 }
                                 Log.d("NewContactsAdapter", dataSnapshot.getKey());
 

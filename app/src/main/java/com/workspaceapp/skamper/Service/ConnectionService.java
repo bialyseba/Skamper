@@ -2,16 +2,27 @@ package com.workspaceapp.skamper.Service;
 
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.sinch.android.rtc.PushPair;
 import com.sinch.android.rtc.Sinch;
 import com.sinch.android.rtc.calling.Call;
 import com.sinch.android.rtc.calling.CallClient;
 import com.sinch.android.rtc.calling.CallClientListener;
+import com.sinch.android.rtc.messaging.Message;
+import com.sinch.android.rtc.messaging.MessageClient;
+import com.sinch.android.rtc.messaging.MessageClientListener;
+import com.sinch.android.rtc.messaging.MessageDeliveryInfo;
+import com.sinch.android.rtc.messaging.MessageFailureInfo;
 import com.workspaceapp.skamper.SkamperApplication;
 import com.workspaceapp.skamper.calling.CallingActivity;
+import com.workspaceapp.skamper.data.AppDataManager;
 
+import java.util.List;
+
+import static com.workspaceapp.skamper.SkamperApplication.messageClient;
 import static com.workspaceapp.skamper.SkamperApplication.sinchClient;
 
 public class ConnectionService extends android.app.Service {
@@ -29,9 +40,13 @@ public class ConnectionService extends android.app.Service {
                 .environmentHost("sandbox.sinch.com")
                 .build();
         sinchClient.setSupportCalling(true);
+        sinchClient.setSupportMessaging(true);
         sinchClient.startListeningOnActiveConnection();
         sinchClient.start();
         SkamperApplication.sinchClient.getCallClient().addCallClientListener(new SinchCallClientListener());
+
+        SkamperApplication.messageClient = sinchClient.getMessageClient();
+        messageClient.addMessageClientListener(new MyMessageClientListener());
     }
 
     @Override
@@ -50,4 +65,54 @@ public class ConnectionService extends android.app.Service {
         }
     }
 
+    class MyMessageClientListener implements MessageClientListener{
+
+        @Override
+        public void onIncomingMessage(MessageClient messageClient, Message message) {
+            Log.d("ConnectionService", "Message from "+ message.getSenderId() + ": " + message.getTextBody());
+            com.workspaceapp.skamper.data.model.Message myMessage = new com.workspaceapp.skamper.data.model.Message(
+                    System.currentTimeMillis(),
+                    message.getTextBody(),
+                    AppDataManager.getInstance().getCurrentUser().getEmail(),
+                    message.getSenderId());
+            SkamperApplication.messagesDatabaseHelper.insertMessage(myMessage);
+            sendBroadcastToActivity(myMessage);
+        }
+
+        @Override
+        public void onMessageSent(MessageClient messageClient, Message message, String s) {
+            Log.d("ConnectionService", "Message to "+ message.getRecipientIds().get(0) + ": " + message.getTextBody());
+            com.workspaceapp.skamper.data.model.Message myMessage = new com.workspaceapp.skamper.data.model.Message(
+                    System.currentTimeMillis(),
+                    message.getTextBody(),
+                    message.getRecipientIds().get(0),
+                    AppDataManager.getInstance().getCurrentUser().getEmail());
+            SkamperApplication.messagesDatabaseHelper.insertMessage(myMessage);
+        }
+
+        @Override
+        public void onMessageFailed(MessageClient messageClient, Message message, MessageFailureInfo messageFailureInfo) {
+
+        }
+
+        @Override
+        public void onMessageDelivered(MessageClient messageClient, MessageDeliveryInfo messageDeliveryInfo) {
+
+        }
+
+        @Override
+        public void onShouldSendPushData(MessageClient messageClient, Message message, List<PushPair> list) {
+
+        }
+    }
+
+    private void sendBroadcastToActivity(com.workspaceapp.skamper.data.model.Message message){
+        Intent local = new Intent();
+        local.setAction("service.to.activity.transfer");
+        local.putExtra("sender",message.getSender());
+        local.putExtra("recipient", message.getRecipient());
+        local.putExtra("body", message.getBody());
+        local.putExtra("time", message.getTimeInMillis());
+        sendBroadcast(local);
+    }
 }
