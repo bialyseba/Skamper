@@ -25,6 +25,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView popupMenuImageView;
     //private EditText searchEditText;
 
+    private InterstitialAd mInterstitialAd;
+
+
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
@@ -59,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MobileAds.initialize(this,"ca-app-pub-7965324584547465~6878472304");
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());
+
 
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -100,8 +112,12 @@ public class MainActivity extends AppCompatActivity {
         updateUserInfo();
 
         ImageButton logoutButton = findViewById(R.id.logoutImageButton);
-        logoutButton.setOnClickListener(view -> {
-            clickLogout();
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                               clickLogout();
+                                            }
+
         });
 
         mAuth = FirebaseAuth.getInstance();
@@ -227,9 +243,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clickLogout(){
+        if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mInterstitialAd.loadAd(adRequest);
+        }
+        showInterstitial();
+
+        SkamperApplication.sinchClient.stopListeningOnActiveConnection();
+        SkamperApplication.sinchClient.terminate();
         AppDataManager.getInstance().setCurrentUserLoggedInMode(this, DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT);
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
+
     }
 
     private void showDialogBox(String message){
@@ -242,6 +267,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+    private void showInterstitial() {
+        // Show the ad if it's ready. Otherwise toast and restart the game.
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            Toast.makeText(this, "Ad did not load", Toast.LENGTH_SHORT).show();
+
+        }
     }
 }
 

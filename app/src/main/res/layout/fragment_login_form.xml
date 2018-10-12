@@ -12,6 +12,9 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:inputType="text"
             android:background="@drawable/edittext_rounded"
             android:id="@+id/emailEditText"
             android:layout_marginStart="@dimen/activity_horizontal_margin"

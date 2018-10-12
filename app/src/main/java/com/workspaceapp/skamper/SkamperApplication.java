@@ -17,6 +17,8 @@ public class SkamperApplication extends Application {
     public static String contactsFor;
     public static MessageClient messageClient;
     public static MessagesDatabaseHelper messagesDatabaseHelper;
+    public static String videoRecipientId = null;
+    public static boolean videoInitiator = false;
 
     @Override
     public void onCreate() {

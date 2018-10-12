@@ -12,6 +12,9 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:inputType="text"
             android:id="@+id/usernameEditText"
             android:background="@drawable/edittext_rounded"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -22,6 +25,9 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:inputType="text"
             android:id="@+id/emailEditText"
             android:background="@drawable/edittext_rounded"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -32,6 +38,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
             android:id="@+id/passwordEditText"
             android:background="@drawable/edittext_rounded"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
