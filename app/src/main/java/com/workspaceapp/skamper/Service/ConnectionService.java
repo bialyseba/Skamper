@@ -67,7 +67,7 @@ public class ConnectionService extends android.app.Service {
 
 
 
-                Toast.makeText(getApplicationContext(), "Za chwilę nastąpi połączenie ",
+                Toast.makeText(getApplicationContext(), "Incoming Call... ",
                         Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(),CallingActivity.class);
                 startActivity(intent);

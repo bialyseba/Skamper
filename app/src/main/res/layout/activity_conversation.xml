@@ -93,14 +93,12 @@
         <ListView
             android:id="@+id/messagesListView"
             android:layout_width="wrap_content"
-            android:divider="@color/transparent"
             android:layout_height="318dp"
-            android:layout_above="@id/dividerView"
+            android:layout_above="@+id/adBannerView"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:dividerHeight="10dp"
-            android:layout_marginBottom="141dp"
-            />
+            android:divider="@color/transparent"
+            android:dividerHeight="10dp" />
 
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adBannerView"
@@ -110,9 +108,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginStart="32dp"
             android:layout_marginTop="58dp"
-            android:layout_marginBottom="101dp"
+            android:layout_marginBottom="77dp"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-           </com.google.android.gms.ads.AdView>
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
     </RelativeLayout>
 </LinearLayout>

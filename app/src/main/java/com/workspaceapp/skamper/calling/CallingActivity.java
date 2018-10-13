@@ -81,6 +81,8 @@ buttonVideo.setOnClickListener(new View.OnClickListener() {
     class SinchCallListener implements VideoCallListener {
         @Override
         public void onCallEnded(Call endedCall) {
+            Toast toast = Toast.makeText(getApplicationContext(),"Call ended", Toast.LENGTH_SHORT);
+            toast.show();
 localView.removeView(vc.getLocalView());
 viewRemoteVideo.removeView(vc.getRemoteView());
 
@@ -92,7 +94,7 @@ viewRemoteVideo.removeView(vc.getRemoteView());
         @Override
         public void onCallEstablished(Call establishedCall) {
             //call.pauseVideo();
-            Toast toast = Toast.makeText(getApplicationContext(),"Nawiazano polaczenie", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(),"Call established", Toast.LENGTH_SHORT);
             toast.show();
             setVolumeControlStream(AudioManager.STREAM_VOICE_CALL);
             AudioController audioController = SkamperApplication.sinchClient.getAudioController();
@@ -102,7 +104,7 @@ viewRemoteVideo.removeView(vc.getRemoteView());
         }
         @Override
         public void onCallProgressing(Call progressingCall) {
-            Toast toast = Toast.makeText(getApplicationContext(),"Dryndam", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(),"Call is progressing...", Toast.LENGTH_SHORT);
             toast.show();
             /*Intent intent = new Intent(getApplicationContext(),CallingActivity.class);
             startActivity(intent);*/
